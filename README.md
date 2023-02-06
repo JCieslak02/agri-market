@@ -1,7 +1,7 @@
 # agri-market
-<h1>It's in a very early stage, and its functionalities will change on a day-to-day basis</h1>
-Agri-market aka agriculture market is a web application for farmers and agricultural traders. It combines functionality of multiple websites into one, concise website. <br>
-You can easily sell/buy tractors and other machines. Additionally, this app allows you to put offers regarding bulk purchase of fruits, livestock etc. 
+<h1>It's in a very early stage, and its functionalities will change on a day-to-day basis.</h1>
+Agri-market aka agriculture market is a web application for farmers and agricultural traders. It combines the functionality of multiple websites into one, concise website. <br>
+You can easily sell/buy tractors and other machines. Additionally, this app allows you to put up offers regarding bulk purchase of fruits, livestock etc. 
 
 <h1>What I'm planning to achieve</h1>
 <ul>
