@@ -1,10 +1,10 @@
-package com.jcieslak.farmersmarket;
+package com.jcieslak.agrimarket;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FarmersMarketApplicationTests {
+class AgriMarketApplicationTests {
 
     @Test
     void contextLoads() {

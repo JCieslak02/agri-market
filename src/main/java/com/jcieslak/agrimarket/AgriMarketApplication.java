@@ -1,13 +1,12 @@
-package com.jcieslak.farmersmarket;
+package com.jcieslak.agrimarket;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FarmersMarketApplication {
-
+public class AgriMarketApplication {
     public static void main(String[] args) {
-        SpringApplication.run(FarmersMarketApplication.class, args);
+        SpringApplication.run(AgriMarketApplication.class, args);
     }
 
 }
