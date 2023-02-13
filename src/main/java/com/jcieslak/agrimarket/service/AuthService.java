@@ -1,5 +1,7 @@
 package com.jcieslak.agrimarket.service;
 
+import com.jcieslak.agrimarket.exception.EmailIsTakenException;
+import com.jcieslak.agrimarket.mapper.UserMapper;
 import com.jcieslak.agrimarket.model.User;
 import com.jcieslak.agrimarket.payload.LoginRequest;
 import com.jcieslak.agrimarket.payload.RegisterRequest;
@@ -22,12 +24,12 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
 
-    // I'll add validation later, for now it's just for testing purposes
     public void register(RegisterRequest registerRequest){
-        User user = new User();
-        user.setEmail(registerRequest.email());
-        user.setRole(registerRequest.userRole());
-        user.setFirstName(registerRequest.firstName());
+        if(userRepository.existsByEmail(registerRequest.email())){
+            throw new EmailIsTakenException(registerRequest.email());
+        }
+
+        User user = UserMapper.MAPPER.registerToEntity(registerRequest);
         user.setPassword(encoder.encode(registerRequest.password()));
         user.setCreatedAt(LocalDateTime.now());
 

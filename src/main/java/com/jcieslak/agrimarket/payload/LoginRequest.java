@@ -1,3 +1,5 @@
 package com.jcieslak.agrimarket.payload;
 
-public record LoginRequest(String email, String password){}
+import jakarta.validation.constraints.NotNull;
+
+public record LoginRequest(@NotNull String email, @NotNull String password){}

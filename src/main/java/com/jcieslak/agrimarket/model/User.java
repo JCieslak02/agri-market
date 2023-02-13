@@ -25,13 +25,14 @@ public class User implements UserDetails {
     private String email;
     private String password;
     private LocalDateTime createdAt;
-    private UserRole role;
+    private UserRole userRole;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(role.name()));
+        return Collections.singleton(new SimpleGrantedAuthority(userRole.name()));
     }
 
+    // looks stupid, I know
     @Override
     public String getUsername() {
         return email;
