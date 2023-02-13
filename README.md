@@ -17,8 +17,8 @@ You can easily sell/buy tractors and other machines. Additionally, this app allo
   <li>Java</li>
   <li>Spring boot</li>
   <li>MongoDB</li>
-  <li>Spring security</li>
-  <li>Thymeleaf</li>
+  <li>OAuth 2's JWT module</li>
   <li>JUnit + Mockito</li>
+  <li>Angular for front-end in future</li>
   <li>... who knows?</li>
 </ul>
