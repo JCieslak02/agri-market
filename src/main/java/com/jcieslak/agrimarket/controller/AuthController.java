@@ -1,7 +1,7 @@
 package com.jcieslak.agrimarket.controller;
 
-import com.jcieslak.agrimarket.payload.LoginRequest;
-import com.jcieslak.agrimarket.payload.RegisterRequest;
+import com.jcieslak.agrimarket.payload.request.AuthenticateRequest;
+import com.jcieslak.agrimarket.payload.request.RegisterRequest;
 import com.jcieslak.agrimarket.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +22,8 @@ public class AuthController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<String> authenticate(@RequestBody @Valid LoginRequest loginRequest){
-        String token = authService.authenticate(loginRequest);
+    public ResponseEntity<String> authenticate(@RequestBody @Valid AuthenticateRequest authenticateRequest){
+        String token = authService.authenticate(authenticateRequest);
         return new ResponseEntity<>(token, HttpStatus.OK);
     }
 }

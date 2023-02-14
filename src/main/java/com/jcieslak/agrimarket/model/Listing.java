@@ -1,5 +1,6 @@
 package com.jcieslak.agrimarket.model;
 
+import com.jcieslak.agrimarket.enums.ListingCategory;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -8,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Document(collection = "listing")
 @Data
-public class Listing {
+public abstract class Listing {
     @Id
     private String id;
     private String title;
@@ -16,4 +17,5 @@ public class Listing {
     private String description;
     private User createdBy;
     private LocalDateTime createdAt;
+    private ListingCategory listingCategory;
 }

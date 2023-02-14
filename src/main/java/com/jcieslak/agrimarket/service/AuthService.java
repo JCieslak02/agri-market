@@ -3,8 +3,8 @@ package com.jcieslak.agrimarket.service;
 import com.jcieslak.agrimarket.exception.EmailIsTakenException;
 import com.jcieslak.agrimarket.mapper.UserMapper;
 import com.jcieslak.agrimarket.model.User;
-import com.jcieslak.agrimarket.payload.LoginRequest;
-import com.jcieslak.agrimarket.payload.RegisterRequest;
+import com.jcieslak.agrimarket.payload.request.AuthenticateRequest;
+import com.jcieslak.agrimarket.payload.request.RegisterRequest;
 import com.jcieslak.agrimarket.repository.UserRepository;
 import com.jcieslak.agrimarket.security.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -36,8 +36,8 @@ public class AuthService {
         userRepository.save(user);
     }
 
-    public String authenticate(LoginRequest loginRequest){
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.email(), loginRequest.password()));
+    public String authenticate(AuthenticateRequest authenticateRequest){
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticateRequest.email(), authenticateRequest.password()));
         return jwtService.generateToken(authentication);
     }
 }
