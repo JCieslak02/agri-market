@@ -9,10 +9,10 @@ import org.hibernate.validator.constraints.Length;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "listingCategory")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = MachineListingRequest.class, name = "MACHINE"),
+        @JsonSubTypes.Type(value = CreateMachineListingRequest.class, name = "MACHINE"),
 })
 @Data
-public abstract class ListingRequest{
+public abstract class CreateListingRequest {
     @NotNull
     @Length(min = 5, max = 50)
     private String title;
@@ -22,4 +22,5 @@ public abstract class ListingRequest{
     @Length(min = 5, max = 300)
     private String description;
     private ListingCategory listingCategory;
+    private String contactPhone;
 }
