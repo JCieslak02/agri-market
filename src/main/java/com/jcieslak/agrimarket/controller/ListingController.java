@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/listings")
@@ -25,5 +28,11 @@ public class ListingController {
     public ResponseEntity<ListingResponse> findListingById(@PathVariable String listingId){
         ListingResponse listingResponse = listingService.findListingResponseById(listingId);
         return ResponseEntity.ok(listingResponse);
+    }
+
+    @PostMapping("/{listingId}/images")
+    public ResponseEntity<Void> addImagesToListing(@PathVariable String listingId, @RequestParam List<MultipartFile> images){
+        listingService.addImagesToListing(listingId, images);
+        return ResponseEntity.ok().build();
     }
 }

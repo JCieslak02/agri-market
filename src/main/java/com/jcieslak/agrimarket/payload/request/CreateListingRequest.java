@@ -21,6 +21,10 @@ public abstract class CreateListingRequest {
     @NotNull
     @Length(min = 5, max = 300)
     private String description;
+    @NotNull
     private ListingCategory listingCategory;
+    @NotNull
     private String contactPhone;
+    @NotNull
+    private AddressRequest addressRequest;
 }

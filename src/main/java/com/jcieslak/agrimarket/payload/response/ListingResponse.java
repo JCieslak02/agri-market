@@ -17,5 +17,6 @@ public abstract class ListingResponse {
     private String contactPhone;
     private LocalDateTime createdAt;
     private ListingCategory listingCategory;
-    private List<Image> imageList;
+    private List<Image> images;
+    private Image thumbnail;
 }
