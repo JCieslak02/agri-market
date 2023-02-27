@@ -1,10 +1,14 @@
 package com.jcieslak.agrimarket.service;
 
+import com.jcieslak.agrimarket.enums.ListingCategory;
 import com.jcieslak.agrimarket.exception.EntityNotFoundException;
+import com.jcieslak.agrimarket.exception.UserIsNotAnOwnerException;
 import com.jcieslak.agrimarket.mapper.ListingMapper;
 import com.jcieslak.agrimarket.model.Image;
 import com.jcieslak.agrimarket.model.Listing;
+import com.jcieslak.agrimarket.model.User;
 import com.jcieslak.agrimarket.payload.request.CreateListingRequest;
+import com.jcieslak.agrimarket.payload.response.ListingOverview;
 import com.jcieslak.agrimarket.payload.response.ListingResponse;
 import com.jcieslak.agrimarket.repository.ImageRepository;
 import com.jcieslak.agrimarket.repository.ListingRepository;
@@ -25,7 +29,7 @@ public class ListingService {
     private final ListingRepository listingRepository;
     private final SecurityUtils securityUtils;
     private final ImageRepository imageRepository;
-    public static final int MAX_IMAGES_PER_LISTING = 10;
+    private static final int MAX_IMAGES_PER_LISTING = 10;
     private static final List<String> ALLOWED_IMAGE_EXTENSIONS = List.of("jpg", "jpeg", "png");
 
     public void createListing(CreateListingRequest createListingRequest){
@@ -37,17 +41,25 @@ public class ListingService {
     }
 
     // 2 methods below are for simplicity’s sake - first one for controller, the latter for internal service use
-    public ListingResponse findListingResponseById(String listingId){
-        return ListingMapper.MAPPER.entityToResponse(findListingById(listingId));
+    public ListingResponse getListingResponseById(String listingId){
+        return ListingMapper.MAPPER.entityToResponse(getListingById(listingId));
     }
 
-    private Listing findListingById(String listingId){
+    private Listing getListingById(String listingId){
         return listingRepository.findById(listingId)
                 .orElseThrow(() -> new EntityNotFoundException("Listing", listingId));
     }
 
     public void addImagesToListing(String listingId, List<MultipartFile> images){
-        Listing listing = findListingById(listingId);
+        Listing listing = getListingById(listingId);
+        User owner = listing.getCreatedBy();
+        User currentUser = securityUtils.getCurrentUser();
+
+        // only the listing owner is allowed to add images
+        if(!owner.equals(currentUser)){
+            throw new UserIsNotAnOwnerException();
+        }
+
         int listingImagesCount = imageRepository.countAllByListing(listing);
         int imagesCountWithNewlyAdded = listingImagesCount + images.size();
 
@@ -71,4 +83,19 @@ public class ListingService {
             }
         });
     }
+
+    public ListingOverview getListingOverviewByListingId(String listingId){
+        Listing listing = getListingById(listingId);
+
+        // set first image as thumbnail or just return null
+        Image thumbnail = imageRepository.findFirstByListing(listing)
+                .orElse(null);
+
+        ListingOverview response = ListingMapper.MAPPER.entityToOverview(listing);
+        response.setThumbnail(thumbnail);
+
+        return response;
+    }
+
+    public List<ListingOverview> getListingOverviewListByCategory(ListingCategory listingCategory, )
 }

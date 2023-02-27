@@ -4,6 +4,7 @@ import com.jcieslak.agrimarket.model.Listing;
 import com.jcieslak.agrimarket.model.MachineListing;
 import com.jcieslak.agrimarket.payload.request.CreateListingRequest;
 import com.jcieslak.agrimarket.payload.request.CreateMachineListingRequest;
+import com.jcieslak.agrimarket.payload.response.ListingOverview;
 import com.jcieslak.agrimarket.payload.response.ListingResponse;
 import com.jcieslak.agrimarket.payload.response.MachineListingResponse;
 import org.mapstruct.Mapper;
@@ -20,4 +21,6 @@ public interface ListingMapper {
 
     @SubclassMapping(source = MachineListing.class, target = MachineListingResponse.class)
     ListingResponse entityToResponse(Listing listing);
+
+    ListingOverview entityToOverview(Listing listing);
 }

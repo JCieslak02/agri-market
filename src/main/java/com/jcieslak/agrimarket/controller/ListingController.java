@@ -1,6 +1,7 @@
 package com.jcieslak.agrimarket.controller;
 
 import com.jcieslak.agrimarket.payload.request.CreateListingRequest;
+import com.jcieslak.agrimarket.payload.response.ListingOverview;
 import com.jcieslak.agrimarket.payload.response.ListingResponse;
 import com.jcieslak.agrimarket.service.ListingService;
 import jakarta.validation.Valid;
@@ -26,13 +27,19 @@ public class ListingController {
 
     @GetMapping("/{listingId}")
     public ResponseEntity<ListingResponse> findListingById(@PathVariable String listingId){
-        ListingResponse listingResponse = listingService.findListingResponseById(listingId);
+        ListingResponse listingResponse = listingService.getListingResponseById(listingId);
         return ResponseEntity.ok(listingResponse);
     }
 
     @PostMapping("/{listingId}/images")
+    @PreAuthorize("hasAuthority('SCOPE_USER')")
     public ResponseEntity<Void> addImagesToListing(@PathVariable String listingId, @RequestParam List<MultipartFile> images){
         listingService.addImagesToListing(listingId, images);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/dupa/{listingId}")
+    public ListingOverview findListingByIddd(@PathVariable String listingId){
+        return listingService.getListingOverviewByListingId(listingId);
     }
 }

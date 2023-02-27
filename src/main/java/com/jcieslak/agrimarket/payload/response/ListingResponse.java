@@ -18,5 +18,4 @@ public abstract class ListingResponse {
     private LocalDateTime createdAt;
     private ListingCategory listingCategory;
     private List<Image> images;
-    private Image thumbnail;
 }
